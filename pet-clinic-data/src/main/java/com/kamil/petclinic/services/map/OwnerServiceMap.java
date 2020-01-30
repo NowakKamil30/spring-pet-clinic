@@ -3,9 +3,13 @@ package com.kamil.petclinic.services.map;
 import com.kamil.petclinic.model.Owner;
 
 import com.kamil.petclinic.services.OwnerService;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
+@Profile(value = "map")
 public class OwnerServiceMap  extends  AbstractMapService<Owner,Long> implements OwnerService {
 
     @Override

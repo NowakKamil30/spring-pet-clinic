@@ -2,14 +2,11 @@ package com.kamil.petclinic.bootstrap;
 
 
 import com.kamil.petclinic.model.Owner;
-import com.kamil.petclinic.model.Pet;
 import com.kamil.petclinic.model.Vet;
 import com.kamil.petclinic.services.OwnerService;
 import com.kamil.petclinic.services.PetService;
 import com.kamil.petclinic.services.VetService;
-import com.kamil.petclinic.services.map.OwnerServiceMap;
-import com.kamil.petclinic.services.map.PetServiceMap;
-import com.kamil.petclinic.services.map.VetServiceMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -19,10 +16,13 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetService petService;
-    public DataLoader() {
-        this.ownerService = new OwnerServiceMap();
-        this.vetService = new VetServiceMap();
-        this.petService = new PetServiceMap();
+
+    @Autowired
+    public DataLoader(OwnerService ownerService, VetService vetService, PetService petService) {
+
+        this.ownerService = ownerService;
+        this.vetService = vetService;
+        this.petService = petService;
     }
 
     @Override
