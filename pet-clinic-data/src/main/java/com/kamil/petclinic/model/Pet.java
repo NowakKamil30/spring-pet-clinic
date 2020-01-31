@@ -2,7 +2,8 @@ package com.kamil.petclinic.model;
 
 import java.time.LocalDate;
 
-public class Pet extends BaseEntity{
+public class Pet extends BaseEntity {
+
     private PetType petType;
     private Owner owner;
     private LocalDate birthDate;
