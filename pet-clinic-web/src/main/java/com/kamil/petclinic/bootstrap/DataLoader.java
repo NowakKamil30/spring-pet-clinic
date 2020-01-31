@@ -2,6 +2,7 @@ package com.kamil.petclinic.bootstrap;
 
 
 import com.kamil.petclinic.model.Owner;
+import com.kamil.petclinic.model.Pet;
 import com.kamil.petclinic.model.PetType;
 import com.kamil.petclinic.model.Vet;
 import com.kamil.petclinic.services.OwnerService;
@@ -11,6 +12,8 @@ import com.kamil.petclinic.services.VetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -45,15 +48,43 @@ public class DataLoader implements CommandLineRunner {
         owner1.setId(1L);
         owner1.setFirstName("first");
         owner1.setLastName("last");
-
+        owner1.setAddress("134 321");
+        owner1.setCity("city");
+        owner1.setTelephone("111111111");
         ownerService.save(owner1);
 
         Owner owner2 = new Owner();
         owner2.setId(2L);
         owner2.setFirstName("first1");
         owner2.setLastName("last1");
+        owner2.setAddress("134 222");
+        owner2.setCity("city2");
+        owner2.setTelephone("211111112");
 
         ownerService.save(owner2);
+
+        Pet mika = new Pet();
+        mika.setName("Mika");
+        mika.setPetType(savedCatPetType);
+        mika.setOwner(owner1);
+        mika.setBirthDate(LocalDate.now());
+        owner1.getPets().add(mika);
+
+        ownerService.change(owner1.getId(),owner1);
+        petService.save(mika);
+
+
+        Pet doge = new Pet();
+        mika.setName("DOGE");
+        mika.setPetType(savedDogPetType);
+        mika.setOwner(owner2);
+        mika.setBirthDate(LocalDate.now());
+        owner2.getPets().add(doge);
+
+        ownerService.change(owner2.getId(), owner2);
+        petService.save(doge);
+
+
 
         Vet vet1 = new Vet();
         vet1.setId(1L);
