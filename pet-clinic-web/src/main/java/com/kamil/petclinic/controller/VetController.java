@@ -38,8 +38,7 @@ public class VetController {
     }
 
     @PutMapping("/{id}")
-    public Vet putOwner(@PathVariable(value="id") Long id, @RequestBody Vet vet)
-    {
+    public Vet putOwner(@PathVariable(value="id") Long id, @RequestBody Vet vet) {
         return vetService.change(id, vet);
     }
 
