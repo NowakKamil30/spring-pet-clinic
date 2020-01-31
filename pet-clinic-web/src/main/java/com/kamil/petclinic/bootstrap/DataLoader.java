@@ -30,7 +30,12 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        if(petTypeService.findAll().size() == 0){
+            initialData();
+        }
+    }
 
+    private void initialData() {
         PetType cat = new PetType();
         cat.setName("Cat");
         PetType dog = new PetType();
@@ -41,9 +46,6 @@ public class DataLoader implements CommandLineRunner {
         Speciality radiology = new Speciality();
         radiology.setDescription("sth");
         specialityService.save(radiology);
-
-
-
 
         Owner owner1 = new Owner();
         owner1.setId(1L);
@@ -86,7 +88,6 @@ public class DataLoader implements CommandLineRunner {
         petService.save(doge);
 
 
-
         Vet vet1 = new Vet();
         vet1.setId(1L);
         vet1.setFirstName("vet1");
@@ -101,6 +102,5 @@ public class DataLoader implements CommandLineRunner {
         vet2.getSpecialities().add(radiology);
 
         vetService.save(vet2);
-
     }
 }
