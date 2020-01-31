@@ -1,11 +1,16 @@
 package com.kamil.petclinic.services.map;
 
 import com.kamil.petclinic.model.Owner;
-import com.kamil.petclinic.services.CrudService;
+
+import com.kamil.petclinic.services.OwnerService;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-public class OwnerServiceMap  extends  AbstractMapService<Owner,Long> implements CrudService<Owner,Long> {
+@Service
+@Profile(value = "map")
+public class OwnerServiceMap  extends  AbstractMapService<Owner,Long> implements OwnerService {
 
     @Override
     public Set<Owner> findAll() {
@@ -29,11 +34,16 @@ public class OwnerServiceMap  extends  AbstractMapService<Owner,Long> implements
 
     @Override
     public Owner save(Owner obj) {
-        return super.save(obj.getId(),obj);
+        return super.save(obj);
     }
 
     @Override
     public Owner findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Owner findByLastName(String lastName) {
+        return null;
     }
 }

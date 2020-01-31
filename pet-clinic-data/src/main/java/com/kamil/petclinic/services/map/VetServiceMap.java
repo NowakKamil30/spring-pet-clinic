@@ -1,11 +1,15 @@
 package com.kamil.petclinic.services.map;
 
 import com.kamil.petclinic.model.Vet;
-import com.kamil.petclinic.services.CrudService;
+import com.kamil.petclinic.services.VetService;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-public class VetServiceMap extends AbstractMapService<Vet,Long> implements CrudService<Vet,Long> {
+@Service
+@Profile(value = "map")
+public class VetServiceMap extends AbstractMapService<Vet,Long> implements VetService {
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
@@ -28,7 +32,7 @@ public class VetServiceMap extends AbstractMapService<Vet,Long> implements CrudS
 
     @Override
     public Vet save(Vet obj) {
-        return super.save(obj.getId(),obj);
+        return super.save(obj);
     }
 
     @Override
