@@ -1,14 +1,8 @@
 package com.kamil.petclinic.bootstrap;
 
 
-import com.kamil.petclinic.model.Owner;
-import com.kamil.petclinic.model.Pet;
-import com.kamil.petclinic.model.PetType;
-import com.kamil.petclinic.model.Vet;
-import com.kamil.petclinic.services.OwnerService;
-import com.kamil.petclinic.services.PetService;
-import com.kamil.petclinic.services.PetTypeService;
-import com.kamil.petclinic.services.VetService;
+import com.kamil.petclinic.model.*;
+import com.kamil.petclinic.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -22,14 +16,16 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetService petService;
     private final PetTypeService petTypeService;
+    private final SpecialitesService specialityService;
 
     @Autowired
-    public DataLoader(OwnerService ownerService, VetService vetService, PetService petService, PetTypeService petTypeService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetService petService, PetTypeService petTypeService, SpecialitesService specialityService) {
 
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petService = petService;
         this.petTypeService = petTypeService;
+        this.specialityService = specialityService;
     }
 
     @Override
@@ -41,6 +37,11 @@ public class DataLoader implements CommandLineRunner {
         dog.setName("Dog");
         PetType savedCatPetType = petTypeService.save(cat);
         PetType savedDogPetType =petTypeService.save(dog);
+
+        Speciality radiology = new Speciality();
+        radiology.setDescription("sth");
+        specialityService.save(radiology);
+
 
 
 
@@ -75,10 +76,10 @@ public class DataLoader implements CommandLineRunner {
 
 
         Pet doge = new Pet();
-        mika.setName("DOGE");
-        mika.setPetType(savedDogPetType);
-        mika.setOwner(owner2);
-        mika.setBirthDate(LocalDate.now());
+        doge.setName("DOGE");
+        doge.setPetType(savedDogPetType);
+        doge.setOwner(owner2);
+        doge.setBirthDate(LocalDate.now());
         owner2.getPets().add(doge);
 
         ownerService.change(owner2.getId(), owner2);
@@ -90,13 +91,14 @@ public class DataLoader implements CommandLineRunner {
         vet1.setId(1L);
         vet1.setFirstName("vet1");
         vet1.setLastName("vet1 last");
-
+        vet1.getSpecialities().add(radiology);
         vetService.save(vet1);
 
         Vet vet2 = new Vet();
-        vet1.setId(2L);
-        vet1.setFirstName("vet2");
-        vet1.setLastName("vet2 last");
+        vet2.setId(2L);
+        vet2.setFirstName("vet2");
+        vet2.setLastName("vet2 last");
+        vet2.getSpecialities().add(radiology);
 
         vetService.save(vet2);
 
