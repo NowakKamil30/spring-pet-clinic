@@ -1,7 +1,10 @@
 package com.kamil.petclinic.services.map;
 
+import com.kamil.petclinic.model.Speciality;
 import com.kamil.petclinic.model.Vet;
+import com.kamil.petclinic.services.SpecialitesService;
 import com.kamil.petclinic.services.VetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +13,14 @@ import java.util.Set;
 @Service
 @Profile(value = "map")
 public class VetServiceMap extends AbstractMapService<Vet,Long> implements VetService {
+
+    private final SpecialitesService specialitesService;
+
+    @Autowired
+    public VetServiceMap(SpecialitesService specialitesService) {
+        this.specialitesService = specialitesService;
+    }
+
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
@@ -32,6 +43,15 @@ public class VetServiceMap extends AbstractMapService<Vet,Long> implements VetSe
 
     @Override
     public Vet save(Vet obj) {
+
+        if(obj.getSpecialities().size() > 0){
+            obj.getSpecialities().forEach(speciality -> {
+                if(speciality.getId() == null){
+                    Speciality savedSpeciality = specialitesService.save(speciality);
+                    speciality.setId(savedSpeciality.getId());
+                }
+            });
+        }
         return super.save(obj);
     }
 
