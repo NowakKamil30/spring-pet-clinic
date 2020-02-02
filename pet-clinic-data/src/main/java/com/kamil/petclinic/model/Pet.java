@@ -1,20 +1,32 @@
 package com.kamil.petclinic.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "pets")
 public class Pet extends BaseEntity {
 
+    @Column(name = "name")
     private String name;
-    private PetType petType;
-    private LocalDate birthDate;
-    private Long OwnerId;
 
-    public Long getOwnerId() {
-        return OwnerId;
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private PetType petType;
+
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Owner Owner;
+
+    public com.kamil.petclinic.model.Owner getOwner() {
+        return Owner;
     }
 
-    public void setOwnerId(Long ownerId) {
-        OwnerId = ownerId;
+    public void setOwner(com.kamil.petclinic.model.Owner owner) {
+        Owner = owner;
     }
 
     public String getName() {
