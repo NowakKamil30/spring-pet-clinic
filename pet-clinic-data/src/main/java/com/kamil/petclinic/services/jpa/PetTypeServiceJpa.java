@@ -1,6 +1,7 @@
 package com.kamil.petclinic.services.jpa;
 
 import com.kamil.petclinic.model.PetType;
+import com.kamil.petclinic.model.Vet;
 import com.kamil.petclinic.repositories.PetTypeRepository;
 import com.kamil.petclinic.services.PetTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,11 @@ public class PetTypeServiceJpa implements PetTypeService {
 
     @Override
     public PetType change(Long aLong, PetType obj) {
+        Optional<PetType> optionalPetType = petTypeRepository.findById(aLong);
+        if(optionalPetType.isPresent()){
+            optionalPetType.get().setPetType(obj);
+            return petTypeRepository.save(optionalPetType.get());
+        }
         return null;
     }
 }
