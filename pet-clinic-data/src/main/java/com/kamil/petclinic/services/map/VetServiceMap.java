@@ -32,13 +32,13 @@ public class VetServiceMap extends AbstractMapService<Vet,Long> implements VetSe
     }
 
     @Override
-    public Vet delete(Vet obj) {
-        return super.delete(obj);
+    public void delete(Vet obj) {
+         super.delete(obj);
     }
 
     @Override
-    public Vet deleteById(Long id) {
-        return super.deleteById(id);
+    public void deleteById(Long id) {
+         super.deleteById(id);
     }
 
     @Override

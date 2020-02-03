@@ -22,13 +22,13 @@ public class PetServiceMap extends AbstractMapService<Pet,Long> implements PetSe
     }
 
     @Override
-    public Pet delete(Pet obj) {
-        return super.delete(obj);
+    public void delete(Pet obj) {
+         super.delete(obj);
     }
 
     @Override
-    public Pet deleteById(Long id) {
-        return super.deleteById(id);
+    public void deleteById(Long id) {
+         super.deleteById(id);
     }
 
     @Override
