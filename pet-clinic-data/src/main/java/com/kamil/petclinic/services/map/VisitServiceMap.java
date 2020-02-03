@@ -33,6 +33,9 @@ public class VisitServiceMap extends AbstractMapService<Visit,Long> implements V
 
     @Override
     public Visit save(Visit obj) {
+        if(obj.getPet() == null || obj.getPet().getOwner() == null || obj.getPet().getId() == null){
+            throw new RuntimeException("invalid visit");
+        }
         return super.save(obj);
     }
 
