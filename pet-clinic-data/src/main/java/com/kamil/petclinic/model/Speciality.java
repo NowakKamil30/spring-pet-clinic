@@ -11,6 +11,9 @@ public class Speciality extends  BaseEntity {
     @Column(name = "description")
     private String description;
 
+    public void setSpeciality(Speciality speciality){
+        this.description = speciality.description;
+    }
     public String getDescription() {
         return description;
     }

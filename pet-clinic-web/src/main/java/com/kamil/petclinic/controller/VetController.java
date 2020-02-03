@@ -43,8 +43,8 @@ public class VetController {
     }
 
     @DeleteMapping("/{id}")
-    public Vet deleteById(@PathVariable(value="id") Long id)
+    public void deleteById(@PathVariable(value="id") Long id)
     {
-        return vetService.deleteById(id);
+         vetService.deleteById(id);
     }
 }

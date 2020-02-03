@@ -43,8 +43,8 @@ public class OwnerController {
     }
 
     @DeleteMapping("/{id}")
-    public Owner deleteById(@PathVariable(value="id") Long id)
+    public void deleteById(@PathVariable(value="id") Long id)
     {
-        return ownerService.deleteById(id);
+         ownerService.deleteById(id);
     }
 }

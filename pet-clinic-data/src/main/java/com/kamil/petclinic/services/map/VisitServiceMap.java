@@ -1,29 +1,28 @@
 package com.kamil.petclinic.services.map;
 
-import com.kamil.petclinic.model.Speciality;
-import com.kamil.petclinic.services.SpecialitesService;
-import jdk.jshell.spi.SPIResolutionException;
+import com.kamil.petclinic.model.Visit;
+import com.kamil.petclinic.services.VisitService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 @Service
 @Profile(value = "map")
-public class SpecialityServiceMap extends AbstractMapService<Speciality,Long> implements SpecialitesService {
+public class VisitServiceMap extends AbstractMapService<Visit,Long> implements VisitService {
+
     @Override
-    public Set<Speciality> findAll() {
+    public Set<Visit> findAll() {
         return super.findAll();
     }
 
     @Override
-    public Speciality change(Long id, Speciality obj) {
+    public Visit change(Long id, Visit obj) {
         return super.change(id, obj);
     }
 
     @Override
-    public void delete(Speciality obj) {
+    public void delete(Visit obj) {
         super.delete(obj);
     }
 
@@ -33,12 +32,12 @@ public class SpecialityServiceMap extends AbstractMapService<Speciality,Long> im
     }
 
     @Override
-    public Speciality save(Speciality obj) {
+    public Visit save(Visit obj) {
         return super.save(obj);
     }
 
     @Override
-    public Speciality findById(Long id) {
+    public Visit findById(Long id) {
         return super.findById(id);
     }
 }

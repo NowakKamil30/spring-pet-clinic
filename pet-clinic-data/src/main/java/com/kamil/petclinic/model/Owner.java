@@ -23,6 +23,14 @@ public class Owner extends Person {
     @Column(name = "telephone")
     private String telephone;
 
+    public void setOwner(Owner owner){
+        this.setFirstName(owner.getFirstName());
+        this.setLastName(owner.getLastName());
+        this.city = owner.city;
+        this.address = owner.address;
+        this.telephone = owner.telephone;
+        this.pets = owner.pets;
+    }
     public String getAddress() {
         return address;
     }
