@@ -21,7 +21,7 @@ public class Pet extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    private Owner Owner;
+    private Owner owner;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
     private Set<Visit> visits = new HashSet<>();
@@ -42,11 +42,11 @@ public class Pet extends BaseEntity {
     }
 
     public com.kamil.petclinic.model.Owner getOwner() {
-        return Owner;
+        return owner;
     }
 
     public void setOwner(com.kamil.petclinic.model.Owner owner) {
-        Owner = owner;
+        owner = owner;
     }
 
     public String getName() {
