@@ -43,23 +43,13 @@ public class VetServiceJpa implements VetService {
     }
 
     @Override
-    public Vet deleteById(Long aLong) {
-        Optional<Vet> optionaVet = vetRepository.findById(aLong);
-        if(optionaVet.isPresent()){
+    public void deleteById(Long aLong) {
             vetRepository.deleteById(aLong);
-            return optionaVet.get();
-        }
-        return null;
     }
 
     @Override
-    public Vet delete(Vet obj) {
-        Optional<Vet> optionalVet = vetRepository.findById(obj.getId());
-        if(optionalVet.isPresent()){
+    public void delete(Vet obj) {
             vetRepository.delete(obj);
-            return optionalVet.get();
-        }
-        return null;
     }
 
     @Override

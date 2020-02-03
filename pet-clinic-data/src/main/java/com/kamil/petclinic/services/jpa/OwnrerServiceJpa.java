@@ -57,23 +57,14 @@ public class OwnrerServiceJpa implements OwnerService {
     }
 
     @Override
-    public Owner deleteById(Long aLong) {
-        Optional<Owner> optionalOwner = ownerRepository.findById(aLong);
-        if(optionalOwner.isPresent()){
+    public void deleteById(Long aLong) {
             ownerRepository.deleteById(aLong);
-            return optionalOwner.get();
-        }
-        return null;
     }
 
     @Override
-    public Owner delete(Owner obj) {
-        Optional<Owner> optionalOwner = ownerRepository.findById(obj.getId());
-        if(optionalOwner.isPresent()){
+    public void delete(Owner obj) {
             ownerRepository.delete(obj);
-            return optionalOwner.get();
-        }
-        return null;
+
 
     }
 
