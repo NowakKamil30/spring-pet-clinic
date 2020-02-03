@@ -1,9 +1,16 @@
 package com.kamil.petclinic.model;
 
+import lombok.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "types")
 public class PetType extends BaseEntity {
@@ -13,14 +20,6 @@ public class PetType extends BaseEntity {
 
     public void setPetType(PetType petType){
         this.name = petType.name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
 

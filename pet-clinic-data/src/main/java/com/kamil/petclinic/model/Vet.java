@@ -1,9 +1,16 @@
 package com.kamil.petclinic.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
@@ -18,14 +25,6 @@ public class Vet extends Person {
         this.setFirstName(vet.getFirstName());
         this.setLastName(vet.getLastName());
         this.specialities=vet.specialities;
-    }
-
-    public Set<Speciality> getSpecialities() {
-        return specialities;
-    }
-
-    public void setSpecialities(Set<Speciality> specialities) {
-        this.specialities = specialities;
     }
 
 

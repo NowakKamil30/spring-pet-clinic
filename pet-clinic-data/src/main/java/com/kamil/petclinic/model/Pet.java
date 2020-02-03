@@ -1,10 +1,17 @@
 package com.kamil.petclinic.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "pets")
 public class Pet extends BaseEntity {
@@ -34,56 +41,5 @@ public class Pet extends BaseEntity {
         this.owner = pet.owner;
     }
 
-    public Set<Visit> getVisits() {
-        return visits;
-    }
 
-    public void setVisits(Set<Visit> visits) {
-        this.visits = visits;
-    }
-
-    public com.kamil.petclinic.model.Owner getOwner() {
-        return owner;
-    }
-
-    public void setOwner(com.kamil.petclinic.model.Owner owner) {
-        this.owner = owner;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public PetType getPetType() {
-        return petType;
-    }
-
-    public void setPetType(PetType petType) {
-        this.petType = petType;
-    }
-
-
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Pet{" +
-                "name='" + name + '\'' +
-                ", petType=" + petType +
-                ", birthDate=" + birthDate +
-                ", owner=" + owner +
-                ", visits=" + visits +
-                '}';
-    }
 }

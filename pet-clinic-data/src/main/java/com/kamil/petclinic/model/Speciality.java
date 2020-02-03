@@ -1,9 +1,16 @@
 package com.kamil.petclinic.model;
 
+import lombok.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "specialities")
 public class Speciality extends  BaseEntity {
@@ -14,11 +21,5 @@ public class Speciality extends  BaseEntity {
     public void setSpeciality(Speciality speciality){
         this.description = speciality.description;
     }
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
