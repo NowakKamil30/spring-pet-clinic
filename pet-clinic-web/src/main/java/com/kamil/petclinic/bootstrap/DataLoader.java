@@ -56,23 +56,11 @@ public class DataLoader implements CommandLineRunner {
 
 
         Owner owner1 = new Owner();
-        owner1.setId(1L);
         owner1.setFirstName("first");
         owner1.setLastName("last");
         owner1.setAddress("134 321");
         owner1.setCity("city");
         owner1.setTelephone("111111111");
-        ownerService.save(owner1);
-
-        Owner owner2 = new Owner();
-        owner2.setId(2L);
-        owner2.setFirstName("first1");
-        owner2.setLastName("last1");
-        owner2.setAddress("134 222");
-        owner2.setCity("city2");
-        owner2.setTelephone("211111112");
-
-        ownerService.save(owner2);
 
         Pet mika = new Pet();
         mika.setName("Mika");
@@ -80,10 +68,14 @@ public class DataLoader implements CommandLineRunner {
         mika.setOwner(owner1);
         mika.setBirthDate(LocalDate.now());
         owner1.getPets().add(mika);
+        ownerService.save(owner1);
 
-        ownerService.change(owner1.getId(),owner1);
-        petService.save(mika);
-
+        Owner owner2 = new Owner();
+        owner2.setFirstName("first1");
+        owner2.setLastName("last1");
+        owner2.setAddress("134 222");
+        owner2.setCity("city2");
+        owner2.setTelephone("211111112");
 
         Pet doge = new Pet();
         doge.setName("DOGE");
@@ -91,9 +83,15 @@ public class DataLoader implements CommandLineRunner {
         doge.setOwner(owner2);
         doge.setBirthDate(LocalDate.now());
         owner2.getPets().add(doge);
+        ownerService.save(owner2);
 
-        ownerService.change(owner2.getId(), owner2);
-        petService.save(doge);
+        Visit visit = new Visit();
+        visit.setPet(doge);
+        visit.setDate(LocalDate.now());
+       visit.setDescription("lalalala");
+
+        visitService.save(visit);
+
 
         Vet vet1 = new Vet();
         vet1.setId(1L);
@@ -110,11 +108,5 @@ public class DataLoader implements CommandLineRunner {
 
         vetService.save(vet2);
 
-
-        Visit visit = new Visit();
-        visit.setPet(mika);
-        visit.setDate(LocalDate.now());
-
-        visitService.save(visit);
     }
 }

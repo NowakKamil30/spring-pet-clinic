@@ -31,6 +31,7 @@ public class Pet extends BaseEntity {
         this.petType = pet.petType;
         this.birthDate = pet.birthDate;
         this.visits = pet.visits;
+        this.owner = pet.owner;
     }
 
     public Set<Visit> getVisits() {
@@ -46,7 +47,7 @@ public class Pet extends BaseEntity {
     }
 
     public void setOwner(com.kamil.petclinic.model.Owner owner) {
-        owner = owner;
+        this.owner = owner;
     }
 
     public String getName() {
@@ -73,5 +74,16 @@ public class Pet extends BaseEntity {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "name='" + name + '\'' +
+                ", petType=" + petType +
+                ", birthDate=" + birthDate +
+                ", owner=" + owner +
+                ", visits=" + visits +
+                '}';
     }
 }

@@ -44,14 +44,14 @@ public class VetServiceMap extends AbstractMapService<Vet,Long> implements VetSe
     @Override
     public Vet save(Vet obj) {
 
-//        if(obj.getSpecialities().size() > 0){
-//            obj.getSpecialities().forEach(speciality -> {
-//                if(speciality.getId() == null){
-//                    Speciality savedSpeciality = specialitesService.save(speciality);
-//                    speciality.setId(savedSpeciality.getId());
-//                }
-//            });
-//        }
+        if(obj.getSpecialities().size() > 0){
+            obj.getSpecialities().forEach(speciality -> {
+                if(speciality.getId() == null){
+                    Speciality savedSpeciality = specialitesService.save(speciality);
+                    speciality.setId(savedSpeciality.getId());
+                }
+            });
+        }
         return super.save(obj);
     }
 
