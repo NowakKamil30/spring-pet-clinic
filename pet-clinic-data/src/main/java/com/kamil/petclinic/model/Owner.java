@@ -24,6 +24,8 @@ public class Owner extends Person {
     private String telephone;
 
     public void setOwner(Owner owner){
+        this.setFirstName(owner.getFirstName());
+        this.setLastName(owner.getLastName());
         this.city = owner.city;
         this.address = owner.address;
         this.telephone = owner.telephone;
