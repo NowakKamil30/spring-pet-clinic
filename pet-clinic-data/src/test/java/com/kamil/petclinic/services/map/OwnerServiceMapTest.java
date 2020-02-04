@@ -86,4 +86,17 @@ class OwnerServiceMapTest {
         assertNotNull(owner);
         assertEquals(ownerLastName,owner.getLastName());
     }
+    @Test
+    void findByLastNameWithWhiteWhiteSpace() {
+        Owner owner = ownerServiceMap.findByLastName(ownerLastName+" ");
+
+        assertNotNull(owner);
+        assertEquals(ownerLastName,owner.getLastName());
+    }
+    @Test
+    void findByLastNameNotFound() {
+        Owner owner = ownerServiceMap.findByLastName(ownerLastName+"sad");
+
+        assertEquals(null,owner);
+    }
 }
