@@ -15,14 +15,14 @@ import java.util.Set;
 
 @Service
 @Profile(value = "jpa")
-public class OwnrerServiceJpa implements OwnerService {
+public class OwnerServiceJpa implements OwnerService {
 
     private final OwnerRepository ownerRepository;
     private final PetRepository petRepository;
     private final PetTypeRepository petTypeRepository;
 
     @Autowired
-    public OwnrerServiceJpa(OwnerRepository ownerRepository, PetRepository petRepository, PetTypeRepository petTypeRepository) {
+    public OwnerServiceJpa(OwnerRepository ownerRepository, PetRepository petRepository, PetTypeRepository petTypeRepository) {
         this.ownerRepository = ownerRepository;
         this.petRepository = petRepository;
         this.petTypeRepository = petTypeRepository;
