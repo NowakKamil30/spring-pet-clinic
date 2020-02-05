@@ -1,1 +1,5 @@
+com\kamil\petclinic\bootstrap\DataLoader.class
+com\kamil\petclinic\controller\OwnerController.class
+com\kamil\petclinic\controller\VetController.class
 com\kamil\petclinic\PetClinicApplication.class
+com\kamil\petclinic\controller\PetController.class
