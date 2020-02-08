@@ -1,5 +1,6 @@
 package com.kamil.petclinic.services.jpa;
 
+import com.kamil.petclinic.exceptions.NotFoundException;
 import com.kamil.petclinic.model.Owner;
 import com.kamil.petclinic.repositories.OwnerRepository;
 import com.kamil.petclinic.repositories.PetRepository;
@@ -32,7 +33,9 @@ public class OwnerServiceJpa implements OwnerService {
     @Override
     public Owner findByLastName(String lastName) {
         Optional<Owner> optionalOwner = ownerRepository.findByLastName(lastName);
-
+        if(!optionalOwner.isPresent()){
+            throw new NotFoundException();
+        }
         return optionalOwner.orElse(null);
     }
 
@@ -53,7 +56,9 @@ public class OwnerServiceJpa implements OwnerService {
     @Override
     public Owner findById(Long aLong) {
         Optional<Owner> optionalOwner= ownerRepository.findById(aLong);
-
+        if(!optionalOwner.isPresent()){
+            throw new NotFoundException();
+        }
         return optionalOwner.orElse(null);
     }
 
