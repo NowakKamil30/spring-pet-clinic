@@ -3,6 +3,8 @@ package com.kamil.petclinic.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Getter
@@ -15,13 +17,17 @@ import java.time.LocalDate;
 public class Visit extends BaseEntity{
 
     @Column(name = "date")
+    @NotNull(message = "date is necessary")
     private LocalDate date;
 
     @Column(name = "description")
+    @NotNull(message = "description is necessary")
+    @Size(min=1, max=200, message = "incorrect length")
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "pet_id")
+    @NotNull(message = "pet is necessary")
     private Pet pet;
 
     public void setVisit(Visit visit){
