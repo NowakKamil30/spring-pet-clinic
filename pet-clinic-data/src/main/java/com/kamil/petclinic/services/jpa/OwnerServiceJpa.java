@@ -34,7 +34,7 @@ public class OwnerServiceJpa implements OwnerService {
     public Owner findByLastName(String lastName) {
         Optional<Owner> optionalOwner = ownerRepository.findByLastName(lastName);
         if(!optionalOwner.isPresent()){
-            throw new NotFoundException();
+            throw new NotFoundException("Owner Not Found. For last name " + lastName);
         }
         return optionalOwner.orElse(null);
     }
@@ -57,7 +57,7 @@ public class OwnerServiceJpa implements OwnerService {
     public Owner findById(Long aLong) {
         Optional<Owner> optionalOwner= ownerRepository.findById(aLong);
         if(!optionalOwner.isPresent()){
-            throw new NotFoundException();
+            throw new NotFoundException("Owner Not Found. For id: " + aLong);
         }
         return optionalOwner.orElse(null);
     }

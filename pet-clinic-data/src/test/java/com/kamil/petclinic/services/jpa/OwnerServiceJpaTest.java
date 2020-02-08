@@ -1,5 +1,6 @@
 package com.kamil.petclinic.services.jpa;
 
+import com.kamil.petclinic.exceptions.NotFoundException;
 import com.kamil.petclinic.model.Owner;
 import com.kamil.petclinic.repositories.OwnerRepository;
 import com.kamil.petclinic.repositories.PetRepository;
@@ -102,13 +103,13 @@ class OwnerServiceJpaTest {
         Owner ownerTest = ownerServiceJpa.findById(1L);
         assertEquals(ownerTest.getId(),owner.get().getId());
     }
-    @Test
-    void findByIdNotFound() {
+    @Test()
+    void findByIdNotFound(){
 
         when(ownerRepository.findById(1L)).thenReturn(Optional.empty());
 
-        Owner ownerTest = ownerServiceJpa.findById(1L);
-        assertNull(ownerTest);
+        assertThrows(NotFoundException.class,()->ownerServiceJpa.findById(1L));
+
     }
     @Test
     void save() {

@@ -1,8 +1,10 @@
 package com.kamil.petclinic.controller;
 
+import com.kamil.petclinic.exceptions.NotFoundException;
 import com.kamil.petclinic.model.Owner;
 import com.kamil.petclinic.services.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -47,4 +49,16 @@ public class OwnerController {
     {
          ownerService.deleteById(id);
     }
+
+    @ExceptionHandler(NotFoundException.class)
+    public String handleNotFound(Exception e){
+        return e.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public String handleNumberFormat(Exception e){
+        return e.getMessage();
+    }
+
 }
