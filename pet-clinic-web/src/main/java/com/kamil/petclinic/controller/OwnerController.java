@@ -50,15 +50,4 @@ public class OwnerController {
          ownerService.deleteById(id);
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    public String handleNotFound(Exception e){
-        return e.getMessage();
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public String handleNumberFormat(Exception e){
-        return e.getMessage();
-    }
-
 }
