@@ -2,6 +2,7 @@ package com.kamil.petclinic.model;
 
 import jdk.jfr.Enabled;
 import lombok.*;
+import org.springframework.data.repository.cdi.Eager;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -17,7 +18,7 @@ import java.util.Set;
 public class Owner extends Person {
 
     @Column(name = "pets")
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER ,mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
 
     @Column(name = "address")

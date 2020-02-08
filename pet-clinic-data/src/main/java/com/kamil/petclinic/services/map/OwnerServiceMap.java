@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Profile(value = "map")
@@ -86,5 +88,15 @@ public class OwnerServiceMap  extends  AbstractMapService<Owner,Long> implements
                         .equalsIgnoreCase(lastName.trim()))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<Owner> findAllByLastName(String lastName) {
+        return this.findAll()
+                .stream()
+                .filter(owner -> owner.getLastName()
+                        .trim()
+                        .equalsIgnoreCase(lastName.trim()))
+                .collect(Collectors.toList());
     }
 }

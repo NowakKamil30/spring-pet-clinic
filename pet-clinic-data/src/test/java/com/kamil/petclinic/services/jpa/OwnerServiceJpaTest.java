@@ -11,9 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -54,6 +52,28 @@ class OwnerServiceJpaTest {
         assertEquals(owner.get().getLastName(),onwerFound.getLastName());
 
         verify(ownerRepository).findByLastName(any());
+    }
+
+    @Test
+    void findAllByLastName(){
+        String ownerLastName = "Nowak";
+        Owner owner = new Owner();
+        owner.setId(1L);
+        owner.setLastName(ownerLastName);
+        Owner owner1 = new Owner();
+        owner1.setId(2L);
+        owner1.setLastName(ownerLastName);
+
+        List<Owner> owners = new ArrayList<>();
+
+        owners.add(owner);
+        owners.add(owner1);
+
+        when(ownerRepository.findAllByLastName(any())).thenReturn(owners);
+
+        List<Owner> ownersTest = ownerServiceJpa.findAllByLastName(ownerLastName);
+
+        assertEquals(owners.size(),ownersTest.size());
     }
 
     @Test

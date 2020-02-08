@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -33,6 +34,11 @@ public class OwnerServiceJpa implements OwnerService {
         Optional<Owner> optionalOwner = ownerRepository.findByLastName(lastName);
 
         return optionalOwner.orElse(null);
+    }
+
+    @Override
+    public List<Owner> findAllByLastName(String lastName) {
+        return ownerRepository.findAllByLastName(lastName);
     }
 
     @Override
