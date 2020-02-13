@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.Set;
+
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
@@ -21,5 +25,16 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorJSON> handleNotFound(Exception e){
         return new ResponseEntity<>(new ErrorJSON(e.getMessage()),HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorJSON> handleConstraintViolation(ConstraintViolationException e){
+
+        StringBuffer ms = new StringBuffer();
+        Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+        for (ConstraintViolation<?> violation : violations) {
+            ms.append(violation.getMessage().concat(";"));
+        }
+        return new ResponseEntity<>(new ErrorJSON(ms.toString()),HttpStatus.FAILED_DEPENDENCY);
     }
 }
