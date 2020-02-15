@@ -1,8 +1,10 @@
 package com.kamil.petclinic.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -20,6 +22,7 @@ public class Pet extends BaseEntity {
 
     @Column(name = "name")
     @NotNull(message = "name is necessary")
+    @NotEmpty(message = "name is necessary")
     @Size(min=2,max=20,message = "incorrect length")
     private String name;
 
@@ -30,6 +33,7 @@ public class Pet extends BaseEntity {
 
     @Column(name = "birth_date")
     @NotNull(message = "birth date is necessary")
+    @DateTimeFormat(pattern = "yyy-MM-dd")
     private LocalDate birthDate;
 
     @ManyToOne

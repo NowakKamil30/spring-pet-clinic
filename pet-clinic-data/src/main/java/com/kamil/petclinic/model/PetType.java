@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -19,6 +20,7 @@ public class PetType extends BaseEntity {
 
     @Column(name = "name")
     @NotNull(message = "name is necessary")
+    @NotEmpty(message = "name is necessary")
     @Size(min=2,max=20,message = "incorrect length")
     private String name;
 
