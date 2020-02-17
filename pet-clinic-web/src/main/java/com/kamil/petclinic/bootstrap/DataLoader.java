@@ -19,7 +19,6 @@ public class DataLoader implements CommandLineRunner {
     private final SpecialitesService specialityService;
     private final VisitService visitService;
 
-    @Autowired
     public DataLoader(OwnerService ownerService,
                       VetService vetService,
                       PetService petService,
