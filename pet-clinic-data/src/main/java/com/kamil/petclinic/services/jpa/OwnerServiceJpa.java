@@ -2,6 +2,7 @@ package com.kamil.petclinic.services.jpa;
 
 import com.kamil.petclinic.exceptions.NotFoundException;
 import com.kamil.petclinic.model.Owner;
+import com.kamil.petclinic.model.Pet;
 import com.kamil.petclinic.repositories.OwnerRepository;
 import com.kamil.petclinic.repositories.PetRepository;
 import com.kamil.petclinic.repositories.PetTypeRepository;
@@ -63,6 +64,9 @@ public class OwnerServiceJpa implements OwnerService {
 
     @Override
     public Owner save(Owner obj) {
+        for(Pet pet: obj.getPets()){
+            pet.setOwner(obj);
+        }
         return ownerRepository.save(obj);
     }
 
