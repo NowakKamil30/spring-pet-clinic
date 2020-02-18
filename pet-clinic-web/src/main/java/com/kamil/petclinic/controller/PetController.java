@@ -35,7 +35,7 @@ public class PetController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletePetById(@PathVariable(value = "id")Long id){
+    public void deleteById(@PathVariable(value = "id")Long id){
          petService.deleteById(id);
     }
 }

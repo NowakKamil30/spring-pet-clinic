@@ -20,7 +20,7 @@ public class VetController {
     }
 
     @GetMapping("")
-    public Set<Vet> getAllOwners()
+    public Set<Vet> getAllVet()
     {
         return vetService.findAll();
     }
