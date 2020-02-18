@@ -1,5 +1,9 @@
 package com.kamil.petclinic.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,6 +22,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "pets")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Pet extends BaseEntity {
 
     @Column(name = "name")
@@ -39,10 +44,12 @@ public class Pet extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     @NotNull(message = "pet has to have owner")
+   // @JsonBackReference
     private Owner owner;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
     @Size(max=99,message = "pet cannot have more than 99 visits")
+    //@JsonManagedReference
     private Set<Visit> visits = new HashSet<>();
 
     public void setPet(Pet pet){

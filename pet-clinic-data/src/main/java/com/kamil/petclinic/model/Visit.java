@@ -1,5 +1,7 @@
 package com.kamil.petclinic.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +32,7 @@ public class Visit extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "pet_id")
     @NotNull(message = "pet is necessary")
+    //@JsonBackReference
     private Pet pet;
 
     public void setVisit(Visit visit){

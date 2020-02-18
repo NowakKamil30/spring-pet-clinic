@@ -1,5 +1,9 @@
 package com.kamil.petclinic.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jdk.jfr.Enabled;
 import lombok.*;
 import org.springframework.data.repository.cdi.Eager;
@@ -19,12 +23,14 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "owners")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Owner extends Person {
 
     @Column(name = "pets")
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER ,mappedBy = "owner")
     @NotNull(message = "pet is necessary")
     @Size(min=1,message = "pet is necessary")
+    //@JsonManagedReference
     private Set<Pet> pets = new HashSet<>();
 
     @Column(name = "address")
