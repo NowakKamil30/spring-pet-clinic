@@ -21,30 +21,34 @@ public class OwnerController {
     }
 
     @GetMapping("")
+    @ResponseStatus(value = HttpStatus.OK)
     public Set<Owner> getAllOwners()
     {
         return ownerService.findAll();
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
     public Owner getById(@PathVariable(value = "id") Long id)
     {
         return ownerService.findById(id);
     }
 
     @PostMapping("")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public Owner postOwner(@RequestBody Owner owner)
     {
         return ownerService.save(owner);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}")@ResponseStatus(value = HttpStatus.OK)
     public Owner putOwner(@PathVariable(value="id") Long id, @RequestBody Owner owner)
     {
        return ownerService.change(id, owner);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
     public void deleteById(@PathVariable(value="id") Long id)
     {
          ownerService.deleteById(id);
