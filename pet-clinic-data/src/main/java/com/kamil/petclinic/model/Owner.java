@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import io.swagger.annotations.ApiModelProperty;
 import jdk.jfr.Enabled;
 import lombok.*;
 import org.springframework.data.repository.cdi.Eager;
@@ -26,6 +27,7 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Owner extends Person {
 
+    @ApiModelProperty(value = "this is a list of owner's pets", required = true)
     @Column(name = "pets")
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER ,mappedBy = "owner")
     @NotNull(message = "pet is necessary")
@@ -33,18 +35,21 @@ public class Owner extends Person {
     //@JsonManagedReference
     private Set<Pet> pets = new HashSet<>();
 
+    @ApiModelProperty(value = "this is a owner's address", required = true)
     @Column(name = "address")
     @NotNull(message = "address is necessary")
     @NotEmpty(message = "address is necessary")
     @Size(min=1, max=30,message = "incorrect length")
     private String address;
 
+    @ApiModelProperty(value = "this is a owner's city", required = true)
     @Column(name = "city")
     @NotNull(message = "city is necessary")
     @NotEmpty(message = "city is necessary")
     @Size(min=1, max=30,message = "incorrect length")
     private String city;
 
+    @ApiModelProperty(value = "this is a owner's phone number", required = true)
     @Column(name = "telephone")
     @NotNull(message = "phone number is necessary")
     @Pattern(regexp = "[0-9]{9}", message = "this is not phone number(pattern 111111111")

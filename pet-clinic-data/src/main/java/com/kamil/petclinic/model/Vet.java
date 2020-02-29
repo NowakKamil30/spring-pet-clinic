@@ -1,5 +1,6 @@
 package com.kamil.petclinic.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Table(name = "vets")
 public class Vet extends Person {
 
+    @ApiModelProperty(value = "this is list of vet specialities", required = true)
     @ManyToMany(fetch =  FetchType.EAGER)
     @JoinTable(name = "vet_specialities",
             joinColumns = @JoinColumn(name = "vet_id"),

@@ -1,5 +1,6 @@
 package com.kamil.petclinic.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.validation.constraints.Size;
 @Table(name = "specialities")
 public class Speciality extends  BaseEntity {
 
+    @ApiModelProperty(value = "this is a description", required = true)
     @Column(name = "description")
     @NotNull(message = "description is necessary")
     @Size(min=2,max=100,message = "incorrect length")

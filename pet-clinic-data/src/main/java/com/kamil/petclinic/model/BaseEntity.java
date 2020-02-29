@@ -1,5 +1,6 @@
 package com.kamil.petclinic.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @MappedSuperclass
 public class BaseEntity implements Serializable {
-
+    @ApiModelProperty(value = "this is id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

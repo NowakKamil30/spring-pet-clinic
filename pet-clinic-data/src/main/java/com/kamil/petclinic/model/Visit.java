@@ -2,6 +2,7 @@ package com.kamil.petclinic.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,10 +20,12 @@ import java.time.LocalDate;
 @Table(name = "visits")
 public class Visit extends BaseEntity{
 
+    @ApiModelProperty(value = "this is visit date", required = true)
     @Column(name = "date")
     @NotNull(message = "date is necessary")
     private LocalDate date;
 
+    @ApiModelProperty(value = "this is description", required = true)
     @Column(name = "description")
     @NotNull(message = "description is necessary")
     @NotEmpty(message = "description is necessary")
