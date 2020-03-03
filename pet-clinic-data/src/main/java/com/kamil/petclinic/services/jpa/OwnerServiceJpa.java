@@ -21,14 +21,10 @@ import java.util.Set;
 public class OwnerServiceJpa implements OwnerService {
 
     private final OwnerRepository ownerRepository;
-    private final PetRepository petRepository;
-    private final PetTypeRepository petTypeRepository;
 
     @Autowired
     public OwnerServiceJpa(OwnerRepository ownerRepository, PetRepository petRepository, PetTypeRepository petTypeRepository) {
         this.ownerRepository = ownerRepository;
-        this.petRepository = petRepository;
-        this.petTypeRepository = petTypeRepository;
     }
 
     @Override
@@ -42,14 +38,21 @@ public class OwnerServiceJpa implements OwnerService {
 
     @Override
     public List<Owner> findAllByLastName(String lastName) {
-        return ownerRepository.findAllByLastName(lastName);
+        List<Owner> ownerList = ownerRepository.findAllByLastName(lastName);
+        if(ownerList.size() == 0)
+        {
+            throw new NotFoundException("list is empty");
+        }
+        return ownerList;
     }
 
     @Override
     public Set<Owner> findAll() {
         Set<Owner> owners = new HashSet<>();
-
         ownerRepository.findAll().forEach(owners::add);
+        if(owners.size() == 0){
+            throw new NotFoundException("list is empty");
+        }
         return owners;
     }
 
@@ -78,8 +81,6 @@ public class OwnerServiceJpa implements OwnerService {
     @Override
     public void delete(Owner obj) {
             ownerRepository.delete(obj);
-
-
     }
 
     @Override
@@ -87,8 +88,10 @@ public class OwnerServiceJpa implements OwnerService {
         Optional<Owner> optionalOwner = ownerRepository.findById(aLong);
         if(optionalOwner.isPresent()){
             optionalOwner.get().setOwner(obj);
-            return ownerRepository.save(optionalOwner.get());
+            optionalOwner.get().setId(aLong);
+            return save(optionalOwner.get());
         }
-        return null;
+        obj.setId(aLong);
+        return save(obj);
     }
 }

@@ -31,8 +31,6 @@ public class Owner extends Person {
     @Column(name = "pets")
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER ,mappedBy = "owner")
     @NotNull(message = "pet is necessary")
-    @Size(min=1,message = "pet is necessary")
-    //@JsonManagedReference
     private Set<Pet> pets = new HashSet<>();
 
     @ApiModelProperty(value = "this is a owner's address", required = true)
