@@ -84,6 +84,8 @@ class OwnerServiceJpaTest {
         owner.setId(1L);
         Owner owner1 = new Owner();
         owner1.setId(2L);
+        owners.add(owner);
+        owners.add(owner1);
 
         when(ownerRepository.findAll()).thenReturn(owners);
 
@@ -91,6 +93,17 @@ class OwnerServiceJpaTest {
 
         assertNotNull(ownersTest);
         assertEquals(owners.size(),ownersTest.size());
+    }
+    @Test
+    void findAllIsEmpty() {
+        Set<Owner> owners = new HashSet<>();
+
+        when(ownerRepository.findAll()).thenReturn(owners);
+
+        assertThrows(NotFoundException.class,()->{
+            Set<Owner> ownersTest = ownerServiceJpa.findAll();
+        });
+
     }
 
     @Test

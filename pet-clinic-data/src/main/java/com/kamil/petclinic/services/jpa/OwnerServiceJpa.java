@@ -59,7 +59,7 @@ public class OwnerServiceJpa implements OwnerService {
     @Override
     public Owner findById(Long aLong) {
         Optional<Owner> optionalOwner= ownerRepository.findById(aLong);
-        if(!optionalOwner.isPresent()){
+        if(optionalOwner.isEmpty()){
             throw new NotFoundException("Owner Not Found id: " + aLong);
         }
         return optionalOwner.orElse(null);
