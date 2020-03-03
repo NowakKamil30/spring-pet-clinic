@@ -1,5 +1,7 @@
 package com.kamil.petclinic.services.jpa;
 
+import com.kamil.petclinic.exceptions.NotFoundException;
+import com.kamil.petclinic.model.Owner;
 import com.kamil.petclinic.model.PetType;
 import com.kamil.petclinic.model.Vet;
 import com.kamil.petclinic.repositories.PetTypeRepository;
@@ -27,15 +29,20 @@ public class PetTypeServiceJpa implements PetTypeService {
     @Override
     public Set<PetType> findAll() {
         Set<PetType> petTypes = new HashSet<>();
-
         petTypeRepository.findAll().forEach(petTypes::add);
-
+        if(petTypes.size() == 0){
+            throw new NotFoundException("list is empty");
+        }
         return petTypes;
     }
 
     @Override
     public PetType findById(Long aLong) {
-        return petTypeRepository.findById(aLong).orElse(null);
+        Optional<PetType> petTypeOptional = petTypeRepository.findById(aLong);
+        if(!petTypeOptional.isPresent()){
+            throw new NotFoundException("PetType Not Found id: " + aLong);
+        }
+        return petTypeOptional.orElse(null);
     }
 
     @Override
@@ -58,8 +65,10 @@ public class PetTypeServiceJpa implements PetTypeService {
         Optional<PetType> optionalPetType = petTypeRepository.findById(aLong);
         if(optionalPetType.isPresent()){
             optionalPetType.get().setPetType(obj);
-            return petTypeRepository.save(optionalPetType.get());
+            optionalPetType.get().setId(aLong);
+            return save(optionalPetType.get());
         }
-        return null;
+        obj.setId(aLong);
+        return save(obj);
     }
 }

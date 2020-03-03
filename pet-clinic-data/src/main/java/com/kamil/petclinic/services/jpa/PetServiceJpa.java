@@ -1,7 +1,9 @@
 package com.kamil.petclinic.services.jpa;
 
+import com.kamil.petclinic.exceptions.NotFoundException;
 import com.kamil.petclinic.model.Pet;
 import com.kamil.petclinic.model.Vet;
+import com.kamil.petclinic.model.Visit;
 import com.kamil.petclinic.repositories.PetRepository;
 import com.kamil.petclinic.services.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +29,26 @@ public class PetServiceJpa implements PetService {
     public Set<Pet> findAll() {
         Set<Pet> pets = new HashSet<>();
         petRepository.findAll().forEach(pets::add);
+        if(pets.size() == 0){
+            throw new NotFoundException("list is empty");
+        }
         return pets;
-
     }
 
     @Override
     public Pet findById(Long aLong) {
         Optional<Pet> optionalPet = petRepository.findById(aLong);
+        if(!optionalPet.isPresent()){
+            throw new NotFoundException("Pet Not Found id: " + aLong);
+        }
         return optionalPet.orElse(null);
     }
 
     @Override
     public Pet save(Pet obj) {
+        for(Visit visit: obj.getVisits()){
+            visit.setPet(obj);
+        }
         return petRepository.save(obj);
     }
 
@@ -57,8 +67,10 @@ public class PetServiceJpa implements PetService {
         Optional<Pet> optionalPet = petRepository.findById(aLong);
         if(optionalPet.isPresent()){
             optionalPet.get().setPet(obj);
+            optionalPet.get().setId(aLong);
             return petRepository.save(optionalPet.get());
         }
-        return null;
+        obj.setId(aLong);
+        return save(obj);
     }
 }

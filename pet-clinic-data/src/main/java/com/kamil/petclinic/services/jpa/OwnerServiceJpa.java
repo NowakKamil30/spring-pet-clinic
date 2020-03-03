@@ -60,7 +60,7 @@ public class OwnerServiceJpa implements OwnerService {
     public Owner findById(Long aLong) {
         Optional<Owner> optionalOwner= ownerRepository.findById(aLong);
         if(!optionalOwner.isPresent()){
-            throw new NotFoundException("Owner Not Found. For id: " + aLong);
+            throw new NotFoundException("Owner Not Found id: " + aLong);
         }
         return optionalOwner.orElse(null);
     }
