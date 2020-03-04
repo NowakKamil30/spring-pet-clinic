@@ -1,5 +1,7 @@
 package com.kamil.petclinic.services.jpa;
 
+import com.kamil.petclinic.exceptions.NotFoundException;
+import com.kamil.petclinic.model.Pet;
 import com.kamil.petclinic.model.Speciality;
 import com.kamil.petclinic.model.Visit;
 import com.kamil.petclinic.repositories.VisitRepository;
@@ -32,11 +34,16 @@ public class VisitServiceJpa implements VisitService {
 
     @Override
     public Visit findById(Long aLong) {
-        return visitRepository.findById(aLong).orElse(null);
+        Optional<Visit> visitOptional = visitRepository.findById(aLong);
+        if(visitOptional.isEmpty()){
+            throw new NotFoundException("Visit Not Found id: " + aLong);
+        }
+        return visitOptional.orElse(null);
     }
 
     @Override
     public Visit save(Visit obj) {
+        obj.getPet().getVisits().add(obj);
         return visitRepository.save(obj);
     }
 
@@ -55,9 +62,11 @@ public class VisitServiceJpa implements VisitService {
         Optional<Visit> visitOptional = visitRepository.findById(aLong);
         if(visitOptional.isPresent()){
             visitOptional.get().setVisit(obj);
-            return visitRepository.save(visitOptional.get());
+            visitOptional.get().setId(aLong);
+            return save(visitOptional.get());
         }
-        return null;
+        obj.setId(aLong);
+        return save(obj);
     }
 }
 

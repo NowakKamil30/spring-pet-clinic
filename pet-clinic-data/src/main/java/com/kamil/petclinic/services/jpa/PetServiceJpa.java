@@ -68,7 +68,7 @@ public class PetServiceJpa implements PetService {
         if(optionalPet.isPresent()){
             optionalPet.get().setPet(obj);
             optionalPet.get().setId(aLong);
-            return petRepository.save(optionalPet.get());
+            return save(optionalPet.get());
         }
         obj.setId(aLong);
         return save(obj);

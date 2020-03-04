@@ -53,7 +53,7 @@ public class Pet extends BaseEntity {
     private Owner owner;
 
     @ApiModelProperty(value = "this is a list of pet visits", required = true)
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "pet", fetch = FetchType.EAGER)
     @Size(max=99,message = "pet cannot have more than 99 visits")
     //@JsonManagedReference
     private Set<Visit> visits = new HashSet<>();

@@ -39,7 +39,7 @@ public class PetTypeServiceJpa implements PetTypeService {
     @Override
     public PetType findById(Long aLong) {
         Optional<PetType> petTypeOptional = petTypeRepository.findById(aLong);
-        if(!petTypeOptional.isPresent()){
+        if(petTypeOptional.isEmpty()){
             throw new NotFoundException("PetType Not Found id: " + aLong);
         }
         return petTypeOptional.orElse(null);

@@ -39,8 +39,7 @@ public class OwnerServiceJpa implements OwnerService {
     @Override
     public List<Owner> findAllByLastName(String lastName) {
         List<Owner> ownerList = ownerRepository.findAllByLastName(lastName);
-        if(ownerList.size() == 0)
-        {
+        if(ownerList.size() == 0) {
             throw new NotFoundException("list is empty");
         }
         return ownerList;

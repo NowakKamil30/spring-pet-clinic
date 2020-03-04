@@ -1,6 +1,8 @@
 package com.kamil.petclinic.services.jpa;
 
+import com.kamil.petclinic.exceptions.NotFoundException;
 import com.kamil.petclinic.model.Owner;
+import com.kamil.petclinic.model.Speciality;
 import com.kamil.petclinic.model.Vet;
 import com.kamil.petclinic.repositories.VetRepository;
 import com.kamil.petclinic.services.VetService;
@@ -26,15 +28,21 @@ public class VetServiceJpa implements VetService {
     @Override
     public Set<Vet> findAll() {
         Set<Vet> vets = new HashSet<>();
-
         vetRepository.findAll().forEach(vets::add);
 
+        if(vets.size() == 0){
+            throw new NotFoundException("list is empty");
+        }
         return vets;
     }
 
     @Override
     public Vet findById(Long aLong) {
-        return vetRepository.findById(aLong).orElse(null);
+        Optional<Vet> optionalVet = vetRepository.findById(aLong);
+        if(optionalVet.isEmpty()){
+            throw new NotFoundException("Vet Not Found id: " + aLong);
+        }
+        return optionalVet.orElse(null);
     }
 
     @Override
@@ -57,8 +65,10 @@ public class VetServiceJpa implements VetService {
         Optional<Vet> optionalVet = vetRepository.findById(aLong);
         if(optionalVet.isPresent()){
             optionalVet.get().setVet(obj);
-            return vetRepository.save(optionalVet.get());
+            optionalVet.get().setId(aLong);
+            return save(optionalVet.get());
         }
-        return null;
+        obj.setId(aLong);
+        return save(obj);
     }
 }

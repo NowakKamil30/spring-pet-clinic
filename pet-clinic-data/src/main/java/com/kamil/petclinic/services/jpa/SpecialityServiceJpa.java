@@ -1,5 +1,6 @@
 package com.kamil.petclinic.services.jpa;
 
+import com.kamil.petclinic.exceptions.NotFoundException;
 import com.kamil.petclinic.model.Pet;
 import com.kamil.petclinic.model.Speciality;
 import com.kamil.petclinic.repositories.SpeciatlityRepository;
@@ -27,12 +28,18 @@ public class SpecialityServiceJpa implements SpecialitesService {
     public Set<Speciality> findAll() {
         Set<Speciality> specialities = new HashSet<>();
         speciatlityRepository.findAll().forEach(specialities::add);
+        if(specialities.size() == 0){
+            throw new NotFoundException("list is empty");
+        }
         return specialities;
     }
 
     @Override
     public Speciality findById(Long aLong) {
         Optional<Speciality> optionalSpeciality = speciatlityRepository.findById(aLong);
+        if(optionalSpeciality.isEmpty()){
+            throw new NotFoundException("Speciality Not Found id: " + aLong);
+        }
         return optionalSpeciality.orElse(null);
     }
 
@@ -56,9 +63,11 @@ public class SpecialityServiceJpa implements SpecialitesService {
         Optional<Speciality> specialityOptional = speciatlityRepository.findById(aLong);
         if(specialityOptional.isPresent()){
             specialityOptional.get().setSpeciality(obj);
-            return speciatlityRepository.save(specialityOptional.get());
+            specialityOptional.get().setId(aLong);
+            return save(specialityOptional.get());
         }
-        return null;
+        obj.setId(aLong);
+        return save(obj);
     }
 }
 
